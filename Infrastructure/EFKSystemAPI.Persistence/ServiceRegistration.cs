@@ -15,7 +15,8 @@ namespace EFKSystemAPI.Persistence
     {
         public static void AddPersistenceServices(this IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql("User ID=emre;Password=1e2m3r4e++;Host=localhost;Port=5432;Database=EFKSysytem;Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;"));
+
+            services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(Configuration.Configurations.ConnectionString));
 
         }
     }
