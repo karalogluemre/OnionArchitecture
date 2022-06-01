@@ -1,5 +1,7 @@
-﻿using EFKSystemAPI.Application.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+using EFKSystemAPI.Application.Abstractions;
 using EFKSystemAPI.Persistence.Concretes;
+using EFKSystemAPI.Persistence.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,8 @@ namespace EFKSystemAPI.Persistence
     {
         public static void AddPersistenceServices(this IServiceCollection services)
         {
-            services.AddSingleton<IProductService, ProductService>();
+            services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql("User ID=emre;Password=1e2m3r4e++;Host=localhost;Port=5432;Database=EFKSysytem;Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;"));
+
         }
     }
 }
