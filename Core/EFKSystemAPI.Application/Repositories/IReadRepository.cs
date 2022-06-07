@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EFKSystemAPI.Domain.Entities.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EFKSystemAPI.Application.Repositories
 {
-    public interface IReadRepository<T> : IRepository<T> where T : class
+    public interface IReadRepository<T> : IRepository<T> where T :BaseEntity
     {
         IQueryable<T> GetAllAsync();
         IQueryable<T> GetWhereAsync(Expression<Func<T, bool>> method);
