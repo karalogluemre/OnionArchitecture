@@ -22,13 +22,13 @@ namespace EFKSystemAPI.Persistence
         public static void AddPersistenceServices(this IServiceCollection services)
         {
 
-            services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(Configuration.Configurations.ConnectionString),ServiceLifetime.Singleton);
-            services.AddSingleton<ICustomersReadRepository, CustomersReadRepository>();
-            services.AddSingleton<ICustomersWriteRepository, CustomersWriteRepository>();
-            services.AddSingleton<IOrdersReadRepository, OrdersReadRepository>();
-            services.AddSingleton<IOrdersWriteRepository, OrdersWriteRepository>();
-            services.AddSingleton<IProductsReadRepository, ProductsReadRepository>();
-            services.AddSingleton<IProductsWriteRepository, ProductsWriteRepository>();
+            services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(Configuration.Configurations.ConnectionString));
+            services.AddScoped<ICustomersReadRepository, CustomersReadRepository>();
+            services.AddScoped<ICustomersWriteRepository, CustomersWriteRepository>();
+            services.AddScoped<IOrdersReadRepository, OrdersReadRepository>();
+            services.AddScoped<IOrdersWriteRepository, OrdersWriteRepository>();
+            services.AddScoped<IProductsReadRepository, ProductsReadRepository>();
+            services.AddScoped<IProductsWriteRepository, ProductsWriteRepository>();
 
         }
     }

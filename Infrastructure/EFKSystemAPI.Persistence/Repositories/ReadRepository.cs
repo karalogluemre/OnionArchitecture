@@ -25,7 +25,7 @@ namespace EFKSystemAPI.Persistence.Repositories
         public IQueryable<T> GetAllAsync() => Table;
 
         public async Task<T> GetByIdAsync(string id)
-        => await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
+        => await Table.FindAsync(Guid.Parse(id));
 
 
         public async Task<T> GetSingleAsync(Expression<Func<T, bool>> method) =>

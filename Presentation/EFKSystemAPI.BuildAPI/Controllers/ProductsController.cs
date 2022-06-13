@@ -17,7 +17,7 @@ namespace EFKSystemAPI.BuildAPI.Controllers
             _productsReadRepository = productsReadRepository;
         }
         [HttpGet]
-        public async void Get()
+        public async Task Get()
         {
             await _productsWriteRepository.SaveRangeAsync(new()
             {
