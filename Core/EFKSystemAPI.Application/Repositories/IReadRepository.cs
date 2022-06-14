@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace EFKSystemAPI.Application.Repositories
 {
-    public interface IReadRepository<T> : IRepository<T> where T :BaseEntity
+    public interface IReadRepository<T> : IRepository<T> where T : BaseEntity
     {
-        IQueryable<T> GetAllAsync();
-        IQueryable<T> GetWhereAsync(Expression<Func<T, bool>> method);
-        Task<T> GetSingleAsync(Expression<Func<T, bool>> method);
-        Task<T> GetByIdAsync(string id);
+        IQueryable<T> GetAllAsync(bool tracking = true);
+        IQueryable<T> GetWhereAsync(Expression<Func<T, bool>> method, bool tracking = true);
+        Task<T> GetSingleAsync(Expression<Func<T, bool>> method, bool tracking = true);
+        Task<T> GetByIdAsync(string id, bool tracking = true);
     }
 }
