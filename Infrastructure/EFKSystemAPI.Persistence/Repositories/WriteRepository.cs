@@ -38,7 +38,7 @@ namespace EFKSystemAPI.Persistence.Repositories
             return true;
         }
 
-        public async Task<bool> SaveAsync(T entity)
+        public async Task<bool> AddAsync(T entity)
         {
             EntityEntry<T> entityEntry = await Table.AddAsync(entity);
             return entityEntry.State == EntityState.Added;
@@ -47,7 +47,7 @@ namespace EFKSystemAPI.Persistence.Repositories
         public async Task<int> SaveAsync() => await _context.SaveChangesAsync();
 
 
-        public async Task<bool> SaveRangeAsync(List<T> entity)
+        public async Task<bool> AddRangeAsync(List<T> entity)
         {
             await Table.AddRangeAsync(entity);
             return true;
