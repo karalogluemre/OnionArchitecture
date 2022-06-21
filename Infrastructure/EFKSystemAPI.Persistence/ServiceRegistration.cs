@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using EFKSystemAPI.Application.Abstractions;
-using EFKSystemAPI.Persistence.Concretes;
 using EFKSystemAPI.Persistence.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -8,12 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EFKSystemAPI.Application.Repositories.Customers;
-using EFKSystemAPI.Persistence.Repositories.Customers;
-using EFKSystemAPI.Application.Repositories.Orders;
-using EFKSystemAPI.Persistence.Repositories.Orders;
-using EFKSystemAPI.Application.Repositories.Products;
-using EFKSystemAPI.Persistence.Repositories.Products;
+using EFKSystemAPI.Application.Repositories;
+using EFKSystemAPI.Persistence.Repositories;
+using EFKSystemAPI.Domain.Entities.Identity;
 
 namespace EFKSystemAPI.Persistence
 {
@@ -21,15 +16,28 @@ namespace EFKSystemAPI.Persistence
     {
         public static void AddPersistenceServices(this IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
+            services.AddIdentity<AppUser, AppRole>(options =>
+            {
+                options.Password.RequiredLength = 3;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(Configuration.Configurations.ConnectionString));
-            services.AddScoped<ICustomersReadRepository, CustomersReadRepository>();
-            services.AddScoped<ICustomersWriteRepository, CustomersWriteRepository>();
-            services.AddScoped<IOrdersReadRepository, OrdersReadRepository>();
-            services.AddScoped<IOrdersWriteRepository, OrdersWriteRepository>();
-            services.AddScoped<IProductsReadRepository, ProductsReadRepository>();
-            services.AddScoped<IProductsWriteRepository, ProductsWriteRepository>();
-
+            services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
+            services.AddScoped<ICustomerWriteRepository, CustomerWriteRepository>();
+            services.AddScoped<IOrderReadRepository, OrderReadRepository>();
+            services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();
+            services.AddScoped<IProductReadRepository, ProductReadRepository>();
+            services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
+            services.AddScoped<IFileReadRepository, FileReadRepository>();
+            services.AddScoped<IFileWriteRepository, FileWriteRepository>();
+            services.AddScoped<IProductImageFileReadRepository, ProductImageFileReadRepository>();
+            services.AddScoped<IProductImageFileWriteRepository, ProductImageFileWriteRepository>();
+            services.AddScoped<IInvoiceFileReadRepository, InvoiceFileReadRepository>();
+            services.AddScoped<IInvoiceFileWriteRepository, InvoiceFileWriteRepository>();
         }
     }
 }

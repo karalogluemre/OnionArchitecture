@@ -12,11 +12,10 @@ namespace EFKSystemAPI.Persistence
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
-
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             DbContextOptionsBuilder<ApplicationDbContext> dbContextOptionsBuilder = new();
-            dbContextOptionsBuilder.UseNpgsql(Configuration.Configurations.ConnectionString);
+            dbContextOptionsBuilder.UseNpgsql(Configuration.ConnectionString);
             return new(dbContextOptionsBuilder.Options);
         }
     }
